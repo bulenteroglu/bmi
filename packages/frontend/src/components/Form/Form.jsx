@@ -15,6 +15,26 @@ export default function Form({ data, setData }) {
     }
   }
 
+  function increment(type) {
+    if (type === 'weight') {
+      setData({ ...data, weight: data.weight + 1 });
+    } else if (type === 'height') {
+      setData({ ...data, height: data.height + 1 });
+    } else {
+      setData({ ...data, age: data.age + 1 });
+    }
+  }
+
+  function decrement(type) {
+    if (type === 'weight') {
+      setData({ ...data, weight: data.weight - 1 });
+    } else if (type === 'height') {
+      setData({ ...data, height: data.height - 1 });
+    } else {
+      setData({ ...data, age: data.age - 1 });
+    }
+  }
+
   return (
     <div className='flex flex-col px-6'>
       <div className='text-3xl font-semibold mt-20'>BMI Calculator</div>
@@ -86,6 +106,7 @@ export default function Form({ data, setData }) {
             <div className='bg-gray-200 w-full h-12 rounded-md py-2 font-bold relative flex items-center justify-center text-lg'>
               <div className='absolute left-0 pl-4'>
                 <svg
+                  onClick={() => decrement('weight')}
                   className='w-6 h-6'
                   fill='currentColor'
                   viewBox='0 0 20 20'
@@ -98,9 +119,10 @@ export default function Form({ data, setData }) {
                   />
                 </svg>
               </div>
-              56
+              {data.weight}
               <div className='absolute right-0 pr-4'>
                 <svg
+                  onClick={() => increment('weight')}
                   className='w-6 h-6'
                   fill='currentColor'
                   viewBox='0 0 20 20'
@@ -141,6 +163,7 @@ export default function Form({ data, setData }) {
             <div className='bg-gray-200 w-full h-12 rounded-md py-2 font-bold relative flex items-center justify-center text-lg'>
               <div className='absolute left-0 pl-4'>
                 <svg
+                  onClick={() => decrement('height')}
                   className='w-6 h-6'
                   fill='currentColor'
                   viewBox='0 0 20 20'
@@ -153,9 +176,10 @@ export default function Form({ data, setData }) {
                   />
                 </svg>
               </div>
-              162
+              {data.height}
               <div className='absolute right-0 pr-4'>
                 <svg
+                  onClick={() => increment('height')}
                   className='w-6 h-6'
                   fill='currentColor'
                   viewBox='0 0 20 20'
@@ -196,6 +220,7 @@ export default function Form({ data, setData }) {
             <div className='bg-gray-200 w-full h-12 rounded-md py-2 font-bold relative flex items-center justify-center text-lg'>
               <div className='absolute left-0 pl-4'>
                 <svg
+                  onClick={() => decrement()}
                   className='w-6 h-6'
                   fill='currentColor'
                   viewBox='0 0 20 20'
@@ -208,9 +233,10 @@ export default function Form({ data, setData }) {
                   />
                 </svg>
               </div>
-              29
+              {data.age}
               <div className='absolute right-0 pr-4'>
                 <svg
+                  onClick={() => increment()}
                   className='w-6 h-6'
                   fill='currentColor'
                   viewBox='0 0 20 20'
