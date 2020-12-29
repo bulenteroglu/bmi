@@ -1,14 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import clsx from 'clsx';
 
-export default function Form() {
+export default function Form({ data, setData }) {
+  console.log(data);
+  const [female, setFemale] = useState(false);
+
+  function handleGender(gender) {
+    if (gender === 'male') {
+      setFemale(false);
+      setData({ ...data, gender: 'male' });
+    } else {
+      setFemale(true);
+      setData({ ...data, gender: 'female' });
+    }
+  }
+
   return (
     <div className='flex flex-col px-6'>
       <div className='text-3xl font-semibold mt-20'>BMI Calculator</div>
       <div className='flex flex-col mt-12'>
         <span className='text-sm text-gray-300'>Gender</span>
         <div className='flex w-full mt-2'>
-          <div className='w-1/2 bg-gray-900 mr-3 rounded-md flex items-center h-40 justify-center relative border-2 border-green-500'>
-            <div className='absolute top-0 right-0 p-2 text-green-500'>
+          <div
+            className={clsx(
+              'w-1/2 bg-gray-900 mr-3 rounded-md flex items-center h-40 justify-center relative',
+              data.gender === 'male' && 'border-2 border-green-500'
+            )}
+            onClick={() => handleGender('male')}
+          >
+            <div
+              className={clsx(
+                'absolute top-0 right-0 p-2 ',
+                data.gender === 'male' ? 'text-green-500' : 'text-gray-700'
+              )}
+            >
               <svg
                 className='w-6 h-6'
                 fill='currentColor'
@@ -24,8 +49,19 @@ export default function Form() {
             </div>
             Male
           </div>
-          <div className='w-1/2 bg-gray-900 ml-3 rounded-md flex items-center justify-center relative'>
-            <div className='absolute top-0 right-0 p-2 text-gray-700'>
+          <div
+            className={clsx(
+              'w-1/2 bg-gray-900 ml-3 rounded-md flex items-center h-40 justify-center relative',
+              data.gender === 'female' && 'border-2 border-green-500'
+            )}
+            onClick={() => handleGender('female')}
+          >
+            <div
+              className={clsx(
+                'absolute top-0 right-0 p-2 ',
+                data.gender === 'female' ? 'text-green-500' : 'text-gray-700'
+              )}
+            >
               <svg
                 className='w-6 h-6'
                 fill='currentColor'
