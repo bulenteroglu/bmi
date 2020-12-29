@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+
 import Calculator from './components/BMICalculator/Calculator';
 
 export default function App() {
