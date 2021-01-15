@@ -1,22 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 
-export default function Result({ data }) {
+export default function Result({ data, setFinished }) {
   const [bmi, setBmi] = useState(null);
   const [weightRange, setWeightRange] = useState({ min: null, max: null });
   const [category, setCategory] = useState(null);
   const [textColor, setTextColor] = useState('');
+
   useEffect(() => {
     const { gender, weight, weightUnit, height, heightUnit, age } = data;
 
-    if (weightUnit === 'kg' && heightUnit === 'cm') {
-      let bmi = (weight / height / height) * 10000;
+    let convertedWeight = weight;
+
+    const handleData = (convertedWeight) => {
+      console.log(convertedWeight);
+
+      let bmi = (convertedWeight / height / height) * 10000;
       let low = (18.5 * height * height) / 10000;
       let high = (24.9 * height * height) / 10000;
       setBmi(bmi.toFixed(1));
       setWeightRange({ min: low.toFixed(1), max: high.toFixed(1) });
+    };
+
+    if (weightUnit === 'pounds') {
+      convertedWeight = (weight / 2.205).toFixed(2);
     }
-  }, []);
+
+    handleData(convertedWeight);
+  }, [data]);
+
+  // Convert pounds to kg: Pounds / 2.205 = kg
 
   useEffect(() => {
     if (bmi >= 18.5 && bmi <= 24.9) {
@@ -58,19 +71,22 @@ export default function Result({ data }) {
         {weightRange.min + ' '}
         to {weightRange.max} kilograms.
       </div>
-      <div className='mt-6 text-gray-400'>
+      <div className='mt-6 text-gray-300'>
         Your BMI is <span className={clsx(textColor)}>{bmi}</span>, indiciating
         your weight is in the
         <span className={clsx(textColor)}> {category}</span> category for adults
         of your height.
       </div>
 
-      <div className='mt-6 text-gray-400'>
+      <div className='mt-6 text-gray-300'>
         Maintaing a healthy weight may reduce the risk of chronic diseases
         associated with overweight and obesity.
       </div>
-      <div className='w-full mt-10'>
-        <button className='bg-green-500 w-full py-3 rounded-md  focus:outline-none'>
+      <div className='w-full mt-11'>
+        <button
+          onClick={() => setFinished(false)}
+          className='bg-green-500 w-full py-3 rounded-md focus:outline-none'
+        >
           Recalculate BMI
         </button>
       </div>

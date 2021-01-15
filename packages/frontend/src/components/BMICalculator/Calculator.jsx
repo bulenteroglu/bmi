@@ -3,9 +3,9 @@ import Form from '../Form/Form';
 
 export default function Calculator() {
   const [data, setData] = useState({
-    weight: 85,
+    weight: 66,
     weightUnit: 'kg',
-    height: 180,
+    height: 152,
     heightUnit: 'cm',
     age: 22,
     gender: 'male',
