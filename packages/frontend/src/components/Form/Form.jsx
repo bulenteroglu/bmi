@@ -17,21 +17,33 @@ export default function Form({ data, setData }) {
 
   function increment(type) {
     if (type === 'weight') {
-      setData({ ...data, weight: data.weight + 1 });
+      if (data.weight % 1 != 0) {
+        setData({ ...data, weight: Math.ceil(data.weight) });
+      } else {
+        setData({ ...data, weight: data.weight + 1 });
+      }
     } else if (type === 'height') {
-      setData({ ...data, height: data.height + 1 });
-    } else {
-      setData({ ...data, age: data.age + 1 });
+      if (data.height % 1 != 0) {
+        setData({ ...data, height: Math.ceil(data.height) });
+      } else {
+        setData({ ...data, height: data.height - 1 });
+      }
     }
   }
 
   function decrement(type) {
     if (type === 'weight') {
-      setData({ ...data, weight: data.weight - 1 });
+      if (data.weight % 1 != 0) {
+        setData({ ...data, weight: Math.floor(data.weight) });
+      } else {
+        setData({ ...data, weight: data.weight - 1 });
+      }
     } else if (type === 'height') {
-      setData({ ...data, height: data.height - 1 });
-    } else {
-      setData({ ...data, age: data.age - 1 });
+      if (data.height % 1 != 0) {
+        setData({ ...data, height: Math.floor(data.height) });
+      } else {
+        setData({ ...data, height: data.height - 1 });
+      }
     }
   }
 
@@ -46,6 +58,8 @@ export default function Form({ data, setData }) {
       setData({ ...data, weight: Math.round(data.weight * 2.205) });
     }
   }, [weightUnit]);
+
+  console.log(data.weight);
 
   return (
     <div className='flex flex-col px-6'>
@@ -256,7 +270,12 @@ export default function Form({ data, setData }) {
                       />
                     </svg>
                   </div>
-                  {data.age}
+                  <input
+                    type='text'
+                    value={data.age}
+                    onChange={(e) => setData({ ...data, age: e.target.value })}
+                    className='bg-transparent focus:outline-none w-12 text-center'
+                  />
                   <div className='absolute right-0 pr-4'>
                     <svg
                       onClick={() => increment()}

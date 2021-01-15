@@ -13,8 +13,6 @@ export default function Result({ data, setFinished }) {
     let convertedWeight = weight;
 
     const handleData = (convertedWeight) => {
-      console.log(convertedWeight);
-
       let bmi = (convertedWeight / height / height) * 10000;
       let low = (18.5 * height * height) / 10000;
       let high = (24.9 * height * height) / 10000;
